@@ -8,4 +8,8 @@ defmodule Board do
     set_elem(space_list, space_index, marker)
   end
   
+  def get_space(space_list, space_index) do
+    Enum.fetch!(space_list, space_index)
+  end
+  
 end
