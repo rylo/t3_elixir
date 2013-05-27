@@ -4,12 +4,13 @@ ExUnit.start
 
 defmodule BoardTest do
   use ExUnit.Case
-
+  
   test "the board has spaces" do
-    assert Board.spaces == {0,1,2,3,4,5,6,7,8,9}
+    assert Board.empty_spaces == {:_,:_,:_,:_,:_,:_,:_,:_,:_}
   end
   
   test "sets a space's value" do
     assert Board.set_space({0, 1}, 1, :marker) == {0,:marker}
   end
+  
 end
