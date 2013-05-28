@@ -1,4 +1,5 @@
 Code.require_file "../../lib/game_rules.exs", __FILE__
+Code.require_file "../../lib/player.exs", __FILE__
 
 ExUnit.start
 
@@ -12,8 +13,8 @@ defmodule GameRulesTest do
   end
   
   test "the board has spaces" do
-    assert GameRules.is_winning_row( [:x,:x,:x] ) == true
-    assert GameRules.is_winning_row( [:x,:x,:o] ) == false
+    assert GameRules.is_winning_row( [:x,:x,:x], :x ) == true
+    assert GameRules.is_winning_row( [:x,:x,:o], :x ) == false
   end
   
   test "returns true if winning row is present" do
@@ -30,15 +31,17 @@ defmodule GameRulesTest do
   end
   
   test "game is over conditions" do
+    players = [Player.new, Player.new(marker: :o)]
+  
     assert GameRules.game_is_over( [:x,:x,:x,
                                     :_,:_,:_,
-                                    :_,:_,:_], [:x, :o] ) == true
+                                    :_,:_,:_], players ) == {true, :win, :x}
     assert GameRules.game_is_over( [:x,:x,:o,
                                     :_,:_,:_,
-                                    :_,:_,:_], [:x, :o] ) == false
+                                    :_,:_,:_], players ) == {false, nil, nil}
     assert GameRules.game_is_over( [:x,:o,:x,
                                     :o,:x,:o,
-                                    :o,:x,:o], [:x, :o] ) == true
+                                    :o,:x,:o], players ) == {true, :tie, nil}
   end
   
 end

@@ -12,7 +12,7 @@ defmodule PlayerTest do
   end
   
   test "initializes a Player record with the given player type and marker" do
-    player = Player.new type: "foo", marker: :bar
+    player = Player.new marker: :bar,  type: "foo"
     assert player.marker == :bar
     assert player.type == "foo"
   end

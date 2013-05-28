@@ -16,21 +16,46 @@ defmodule GameRules do
     Enum.count( Enum.map( board_combinations(board), fn(board_combination) -> board_combination == [marker, marker, marker] end ), fn(x) -> x == true end ) > 0
   end
   
-  def is_winning_row( board_row ) do
-    Enum.count( board_row, fn(x) -> x == :x end ) == 3
+  def is_winning_row_for_marker(board_row, marker) do
+    count_marker_type(board_row, marker) == 3
   end
   
-  def game_is_over(board, markers) do
-    Enum.count( markers, fn(marker) -> winning_row_is_available_for_marker(board, marker) == true end ) > 0 
-      || game_is_tie(board)
+  def game_is_over(board, players) do
+    cond do
+      winning_row_is_available_for_marker(board, marker) ->
+        win_message()
+      game_is_tie(board) ->
+        tie_message
+      true ->
+        false
+      end
+    end
+        
+    markers = Enum.map(players, fn(player) -> player.marker end)
+    win_messages = Enum.filter_map( markers, 
+        fn(marker) -> winning_row_is_available_for_marker(board, marker) end, 
+        fn(marker) -> win_message(marker) end )
+    # game_is_tie(board)
+  end
+  
+  def no_win_message do
+    {false, :no_winner, nil}
+  end
+  
+  def tie_message do
+    {true, :tie, nil}
+  end
+  
+  def win_message(marker) do
+    {true, :win, marker}
   end
   
   def game_is_tie(board) do
     count_marker_type(board, :_) == 0
   end
   
-  def count_marker_type(board, marker) do
-    Enum.count( board, fn(board_space) -> board_space == marker end )
+  def count_marker_type(collection, marker) do
+    Enum.count( collection, fn(collection_element) -> collection_element == marker end )
   end
   
 end

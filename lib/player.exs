@@ -1,3 +1,1 @@
-defrecord Player, type: "human", marker: :x do
-  
-end
+defrecord Player, marker: :x, type: "human" do end

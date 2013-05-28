@@ -5,8 +5,8 @@ ExUnit.start
 defmodule ConsoleIOTest do
   use ExUnit.Case
   
-  test "combines the given board with the winning combinations" do
-    assert ConsoleIO.lol
+  test "uses erlang's stdio" do
+    # assert ConsoleIO.puts('') == nil
   end
   
 end
