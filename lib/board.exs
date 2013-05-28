@@ -4,8 +4,8 @@ defmodule Board do
     {:_,:_,:_,:_,:_,:_,:_,:_,:_}
   end
   
-  def set_space(space_list, space_index, marker) do
-    set_elem(space_list, space_index, marker)
+  def set_space(board, space_index, marker) do
+    set_elem(board, space_index, marker)
   end
   
   def get_space(space_list, space_index) do
