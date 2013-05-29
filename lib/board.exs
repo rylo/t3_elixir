@@ -10,6 +10,7 @@ defmodule Board do
   end
   
   def set_space(board, space_index, marker) do
+    # use a list instead? i.e. get rid of set_elem?
     set_elem(list_to_tuple(board), space_index, marker)
     |> tuple_to_list
   end
@@ -22,7 +23,7 @@ defmodule Board do
     try do
       get_space(board, index) == :_
     catch
-      value ->
+      _value ->
         false
     end
   end

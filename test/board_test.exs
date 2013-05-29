@@ -10,7 +10,7 @@ defmodule BoardTest do
   end
   
   test "sets a space's value" do
-    assert Board.set_space(Board.empty_board, 1, :marker) == {:_,:marker,:_,:_,:_,:_,:_,:_,:_}
+    assert Board.set_space(Board.empty_board, 1, :marker) == [:_,:marker,:_,:_,:_,:_,:_,:_,:_]
   end
   
   test "gets a space's value" do

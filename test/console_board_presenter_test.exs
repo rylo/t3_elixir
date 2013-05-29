@@ -10,7 +10,7 @@ defmodule ConsoleBoardPresenterTest do
   end
   
   test "renders an entire board" do
-    assert ConsoleBoardPresenter.render_board([:_,:x,:o,:x,:x,:o,:_,:x,:o]) == "   | x | o \n-----------\n x | x | o \n-----------\n   | x | o "
+    assert ConsoleBoardPresenter.render_board([:_,:x,:o,:x,:x,:o,:_,:x,:o]) == "   | x | o \n-----------\n x | x | o \n-----------\n   | x | o \n\n"
   end
   
 end

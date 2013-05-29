@@ -9,7 +9,7 @@ defmodule ConsoleIO do
   end
   
   def put_error_message(message) do
-    "Error: " <> message
+    "Error: #{message}"
     |> IO.puts
   end
   

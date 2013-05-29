@@ -30,26 +30,43 @@ defmodule GameRulesTest do
     assert GameRules.winning_combinations == [ [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6] ]
   end
   
-  test "game is over conditions" do
-    players = [Player.new, Player.new(marker: :o)]
-  
+  test "game is over conditions" do  
     assert GameRules.game_is_over?( [:x,:x,:x,
                                     :_,:_,:_,
-                                    :_,:_,:_], players ) == true
+                                    :_,:_,:_] ) == true
     assert GameRules.game_is_over?( [:x,:x,:o,
                                     :_,:_,:_,
-                                    :_,:_,:_], players ) == false
+                                    :_,:_,:_] ) == false
     assert GameRules.game_is_over?( [:x,:o,:x,
                                     :o,:x,:o,
-                                    :o,:x,:o], players ) == true
+                                    :o,:x,:o] ) == true
   end
   
   test "finds the winner of the game" do
-    players = [Player.new, Player.new(marker: :o)]
-    
     assert GameRules.find_winner([:_,:x,:x,
                                   :_,:x,:o,
-                                  :o,:x,:o], players) == :x
+                                  :o,:x,:o]) == :x
+    assert GameRules.find_winner([:_,:x,:x,
+                                  :_,:x,:o,
+                                  :o,:o,:o]) == :o
+    assert GameRules.find_winner([:_,:x,:x,
+                                  :_,:x,:o,
+                                  :o,:o,:_]) == nil
+  end
+  
+  test "alternates player turns" do
+    players = [Player.new(type: "human", marker: :x), Player.new(type: "easy computer", marker: :o)]
+    assert GameRules.alternate_players(players, Enum.first(players)) == List.last(players)
+  end
+
+  test "returns whether immediate win is available for a given marker" do
+    assert GameRules.immediate_win_available_for_marker( [:x,:x,:x,:_,:_,:_,:_,:_,:_], :x ) == false
+    # assert GameRules.game_is_over?( [:x,:x,:o,
+#                                     :_,:_,:_,
+#                                     :_,:_,:_] ) == false
+#     assert GameRules.game_is_over?( [:x,:o,:x,
+#                                     :o,:x,:o,
+#                                     :o,:x,:o] ) == true
   end
   
 end

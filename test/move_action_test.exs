@@ -9,7 +9,7 @@ defmodule MoveActionTest do
   
   test "gets a move from a human player" do
     human = Player.new
-    assert MoveAction.process_human_move("3\n", human.marker, Board.empty_board) == {:_,:_,:_,:x,:_,:_,:_,:_,:_}
+    assert MoveAction.process_human_move("3\n", human.marker, Board.empty_board) == [:_,:_,:_,:x,:_,:_,:_,:_,:_]
   end
   
   test "picks a random open space from the board" do
@@ -18,6 +18,14 @@ defmodule MoveActionTest do
     
     assert modified_board == [:computer_marker,:x,:_,:x,:o,:x,:o,:o,:x]
     || assert modified_board == [:_,:x,:computer_marker,:x,:o,:x,:o,:o,:x]
+  end
+  
+  test "picks the best available space on the board" do
+    computer = Player.new marker: :x, type: "ultimate computer"
+    modified_board = MoveAction.new(computer.type, computer.marker, [:_,:x,:_,
+                                                                     :x,:o,:x,
+                                                                     :o,:o,:x])
+    assert modified_board == [:_,:x,:x,:x,:o,:x,:o,:o,:x]
   end
   
 end
