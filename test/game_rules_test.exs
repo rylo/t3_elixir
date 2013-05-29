@@ -33,15 +33,23 @@ defmodule GameRulesTest do
   test "game is over conditions" do
     players = [Player.new, Player.new(marker: :o)]
   
-    assert GameRules.game_is_over( [:x,:x,:x,
+    assert GameRules.game_is_over?( [:x,:x,:x,
                                     :_,:_,:_,
-                                    :_,:_,:_], players ) == {true, :win, :x}
-    assert GameRules.game_is_over( [:x,:x,:o,
+                                    :_,:_,:_], players ) == true
+    assert GameRules.game_is_over?( [:x,:x,:o,
                                     :_,:_,:_,
-                                    :_,:_,:_], players ) == {false, nil, nil}
-    assert GameRules.game_is_over( [:x,:o,:x,
+                                    :_,:_,:_], players ) == false
+    assert GameRules.game_is_over?( [:x,:o,:x,
                                     :o,:x,:o,
-                                    :o,:x,:o], players ) == {true, :tie, nil}
+                                    :o,:x,:o], players ) == true
+  end
+  
+  test "finds the winner of the game" do
+    players = [Player.new, Player.new(marker: :o)]
+    
+    assert GameRules.find_winner([:_,:x,:x,
+                                  :_,:x,:o,
+                                  :o,:x,:o], players) == :x
   end
   
 end
