@@ -1,12 +1,10 @@
 defmodule GameRulesTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   @subject GameRules
 
   test "combines the given board with the winning combinations" do
-    assert @subject.board_combinations( [:x,:x,:x,
-                                          :_,:_,:o,
-                                          :_,:_,:o] ) == [[:x,:x,:x],[:_,:_,:o],[:_,:_,:o],[:x,:_,:_],[:x,:_,:_],[:x,:o,:o],[:x,:_,:o],[:x,:_,:_]]
+    assert @subject.board_combinations( [:x,:x,:x,:_,:_,:o,:_,:_,:o] ) == [[:x,:x,:x],[:_,:_,:o],[:_,:_,:o],[:x,:_,:_],[:x,:_,:_],[:x,:o,:o],[:x,:_,:o],[:x,:_,:_]]
   end
 
   test "the board has spaces" do
@@ -15,12 +13,8 @@ defmodule GameRulesTest do
   end
 
   test "returns true if winning row is present" do
-    assert @subject.winning_row_is_available_for_marker( [:x,:x,:x,
-                                                           :_,:_,:_,
-                                                           :_,:_,:_], :x ) == true
-    assert @subject.winning_row_is_available_for_marker( [:x,:x,:x,
-                                                           :_,:_,:_,
-                                                           :_,:_,:_], :o ) == false
+    assert @subject.winning_row_is_present_for_marker( [:x,:x,:x,:_,:_,:_,:_,:_,:_], :x ) == true
+    assert @subject.winning_row_is_present_for_marker( [:x,:x,:x,:_,:_,:_,:_,:_,:_], :o ) == false
   end
 
   test "returns winning row combinations" do
@@ -28,27 +22,15 @@ defmodule GameRulesTest do
   end
 
   test "game is over conditions" do  
-    assert @subject.game_is_over?( [:x,:x,:x,
-                                     :_,:_,:_,
-                                     :_,:_,:_] ) == true
-    assert @subject.game_is_over?( [:x,:x,:o,
-                                     :_,:_,:_,
-                                     :_,:_,:_] ) == false
-    assert @subject.game_is_over?( [:x,:o,:x,
-                                     :o,:x,:o,
-                                     :o,:x,:o] ) == true
+    assert @subject.game_is_over?( [:x,:x,:x,:_,:_,:_,:_,:_,:_] ) == true
+    assert @subject.game_is_over?( [:x,:x,:o,:_,:_,:_,:_,:_,:_] ) == false
+    assert @subject.game_is_over?( [:x,:o,:x,:o,:x,:o,:o,:x,:o] ) == true
   end
 
   test "finds the winner of the game" do
-    assert @subject.find_winner([:_,:x,:x,
-                                  :_,:x,:o,
-                                  :o,:x,:o]) == :x
-    assert @subject.find_winner([:_,:x,:x,
-                                  :_,:x,:o,
-                                  :o,:o,:o]) == :o
-    assert @subject.find_winner([:_,:x,:x,
-                                  :_,:x,:o,
-                                  :o,:o,:_]) == nil
+    assert @subject.find_winner( [:_,:x,:x,:_,:x,:o,:o,:x,:o]) == :x
+    assert @subject.find_winner( [:_,:x,:x,:_,:x,:o,:o,:o,:o]) == :o
+    assert @subject.find_winner( [:_,:x,:x,:_,:x,:o,:o,:o,:_]) == nil
   end
 
   test "alternates player turns" do
@@ -61,8 +43,8 @@ defmodule GameRulesTest do
   end
   
   test "returns the game's status in text" do
-    assert @subject.get_game_status([:x,:x,:x,:_,:_,:_,:_,:_,:_]) == "x wins!"
-    assert @subject.get_game_status([:o,:_,:_,:_,:o,:_,:_,:_,:o]) == "o wins!"
-    assert @subject.get_game_status([:x,:o,:x,:o,:x,:o,:o,:x,:o]) == "It's a tie!"
+    assert @subject.get_game_status([:x,:x,:x,:_,:_,:_,:_,:_,:_]) == "\nx wins!\n"
+    assert @subject.get_game_status([:o,:_,:_,:_,:o,:_,:_,:_,:o]) == "\no wins!\n"
+    assert @subject.get_game_status([:x,:o,:x,:o,:x,:o,:o,:x,:o]) == "\nIt's a tie!\n"
   end
 end

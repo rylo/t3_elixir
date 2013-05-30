@@ -19,20 +19,22 @@ defmodule GameRules do
   def get_game_status(board) do
     cond do
       find_winner(board) ->
-        "#{find_winner(board)} wins!"
+        "\n#{find_winner(board)} wins!\n"
       game_is_tie?(board) ->
-        "It's a tie!"
+        "\nIt's a tie!\n"
     end
   end
 
-  def winning_row_is_available_for_marker(board, marker) do
-    Enum.map( board_combinations(board), fn(board_combination) -> board_combination == [marker, marker, marker] end)
+  def winning_row_is_present_for_marker(board, marker) do
+    Enum.map( board_combinations(board), fn(board_combination) -> 
+      board_combination == [marker, marker, marker] end)
     |> collection_contains_true?
   end
 
   def immediate_win_available_for_marker(board, marker) do
     board_combinations(board)
-    |> Enum.map(fn(combination) -> Board.count_marker_type(combination, :_) == 1 && Board.count_marker_type(combination, marker) == 2 end)
+    |> Enum.map(fn(combination) -> 
+      Board.count_marker_type(combination, :_) == 1 && Board.count_marker_type(combination, marker) == 2 end)
     |> collection_contains_true?
   end
 
@@ -54,12 +56,12 @@ defmodule GameRules do
   end
 
   def someone_won?(markers, board) do
-    Enum.count(markers, fn(marker) -> winning_row_is_available_for_marker(board, marker) == true end ) > 0
+    Enum.count(markers, fn(marker) -> winning_row_is_present_for_marker(board, marker) == true end ) > 0
   end
 
   def find_winner(board) do
     player_markers
-    |> Enum.filter_map(fn(marker) -> winning_row_is_available_for_marker(board, marker) == true end, fn(marker) -> marker end)
+    |> Enum.filter_map(fn(marker) -> winning_row_is_present_for_marker(board, marker) == true end, fn(marker) -> marker end)
     |> Enum.first
   end
 

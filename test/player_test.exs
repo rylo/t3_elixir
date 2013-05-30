@@ -1,5 +1,5 @@
 defmodule PlayerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "initializes a Player record with default values" do
     player = Player.new

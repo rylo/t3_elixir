@@ -1,5 +1,5 @@
 defmodule MoveActionTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "picks a random open space from the board" do
     computer = Player.new marker: :computer_marker, type: "easy computer"

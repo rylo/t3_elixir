@@ -1,10 +1,10 @@
 Elixir.Player
-Elixir.ElixirT3
 Elixir.RandomStrategy
 Elixir.NegamaxStrategy
+Elixir.ElixirT3
 Elixir.GameRules
 Elixir.MoveAction
-Elixir.Board
 Elixir.Game
+Elixir.Board
 Elixir.ConsoleIO
 Elixir.ConsoleBoardPresenter
