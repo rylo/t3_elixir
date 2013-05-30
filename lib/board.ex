@@ -6,18 +6,15 @@ defmodule Board do
     List.duplicate(@empty_space_marker, 9)
   end
 
-  # BOARD?
   def count_marker_type(collection, marker) do
     Enum.count( collection, fn(collection_element) -> collection_element == marker end )
   end
 
-  # BOARD?
   def board_is_empty?(board) do
-    Board.empty_space_indexes(board)
+    empty_space_indexes(board)
     |> Enum.count == 9
   end
 
-  # BOARD?
   def board_is_full?(board) do
     count_marker_type(board, :_) == 0
   end

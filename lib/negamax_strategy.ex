@@ -15,9 +15,9 @@ defmodule NegamaxStrategy do
   end
 
   def start_negamax(board, marker) do
-    Board.empty_space_indexes(board)
+    @board.empty_space_indexes(board)
     |> Enum.map(fn(empty_space) ->
-          Board.set_space(board, empty_space, marker)
+          @board.set_space(board, empty_space, marker)
           |> run(@game_rules.alternate_players(marker), 1)
           |> get_max
           |> make_score_tuple(empty_space)
@@ -25,19 +25,26 @@ defmodule NegamaxStrategy do
   end
 
   def make_score_tuple(score, space_index) do
-    {-1 * score, space_index}
+    { inverse_number(score), space_index }
   end
 
   def run(board, marker, depth) do
-    Enum.map(Board.empty_space_indexes(board),
+    Enum.map(@board.empty_space_indexes(board),
       fn(space_index) ->
         altered_board = @board.set_space(board, space_index, marker)
         if @game_rules.game_is_over?(altered_board) do
           current_board_score_for_marker(altered_board, marker, depth)
         else
-          -1 * get_max(run(altered_board, @game_rules.alternate_players(marker), depth + 1))
+          altered_board
+          |> run(@game_rules.alternate_players(marker), depth + 1)
+          |> get_max
+          |> inverse_number
         end
     end)
+  end
+
+  def inverse_number(number) do
+    -1 * number
   end
 
   def get_max(list) do

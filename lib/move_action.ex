@@ -6,7 +6,7 @@ defmodule MoveAction do
     input = @io.gets("What's your move, human? ")
     index = @io.process_human_move(input)
     
-    if Board.is_valid_move(index, board) do 
+    if Board.is_valid_move?(index, board) do 
       index
     else
       new("human", marker, board)
@@ -14,11 +14,12 @@ defmodule MoveAction do
   end
 
   def new("easy computer", marker, board) do 
-    RandomStrategy.get_move(Board.empty_space_indexes(board), marker)
+    Board.empty_space_indexes(board)
+    |> RandomStrategy.get_move(marker)
   end
 
   def new("ultimate computer", marker, board) do 
-    NegamaxStrategy.get_move(board, marker)
+    board
+    |> NegamaxStrategy.get_move(marker)
   end
-
 end
