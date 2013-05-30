@@ -1,8 +1,6 @@
 Code.require_file "../../lib/game_rules.exs", __FILE__
 Code.require_file "../../lib/player.exs", __FILE__
 
-ExUnit.start
-
 defmodule GameRulesTest do
   use ExUnit.Case
   
@@ -32,16 +30,16 @@ defmodule GameRulesTest do
   
   test "game is over conditions" do  
     assert GameRules.game_is_over?( [:x,:x,:x,
-                                    :_,:_,:_,
-                                    :_,:_,:_] ) == true
+                                     :_,:_,:_,
+                                     :_,:_,:_] ) == true
     assert GameRules.game_is_over?( [:x,:x,:o,
-                                    :_,:_,:_,
-                                    :_,:_,:_] ) == false
+                                     :_,:_,:_,
+                                     :_,:_,:_] ) == false
     assert GameRules.game_is_over?( [:x,:o,:x,
-                                    :o,:x,:o,
-                                    :o,:x,:o] ) == true
+                                     :o,:x,:o,
+                                     :o,:x,:o] ) == true
   end
-  
+
   test "finds the winner of the game" do
     assert GameRules.find_winner([:_,:x,:x,
                                   :_,:x,:o,
@@ -53,7 +51,7 @@ defmodule GameRulesTest do
                                   :_,:x,:o,
                                   :o,:o,:_]) == nil
   end
-  
+
   test "alternates player turns" do
     players = [Player.new(type: "human", marker: :x), Player.new(type: "easy computer", marker: :o)]
     assert GameRules.alternate_players(players, Enum.first(players)) == List.last(players)
@@ -61,12 +59,6 @@ defmodule GameRulesTest do
 
   test "returns whether immediate win is available for a given marker" do
     assert GameRules.immediate_win_available_for_marker( [:x,:x,:x,:_,:_,:_,:_,:_,:_], :x ) == false
-    # assert GameRules.game_is_over?( [:x,:x,:o,
-#                                     :_,:_,:_,
-#                                     :_,:_,:_] ) == false
-#     assert GameRules.game_is_over?( [:x,:o,:x,
-#                                     :o,:x,:o,
-#                                     :o,:x,:o] ) == true
   end
-  
+
 end

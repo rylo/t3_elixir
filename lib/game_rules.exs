@@ -1,5 +1,9 @@
 defmodule GameRules do
   
+  def player_markers do
+    [:x, :o]
+  end
+  
   def winning_combinations do
     [ [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6] ]
   end
@@ -8,8 +12,15 @@ defmodule GameRules do
     Enum.map( winning_combinations, fn(winning_combination) -> combine_winning_combination_and_board(winning_combination, board) end )
   end
   
+  # BOARD?
   def board_is_empty?(board) do
-    Enum.count(Board.empty_space_indexes(board)) == 9
+    Board.empty_space_indexes(board)
+    |> Enum.count == 9
+  end
+  
+  # BOARD?
+  def board_is_full?(board) do
+    count_marker_type(board, :_) == 0
   end
   
   def combine_winning_combination_and_board(winning_combination, board) do
@@ -18,12 +29,17 @@ defmodule GameRules do
   
   def winning_row_is_available_for_marker(board, marker) do
     Enum.map( board_combinations(board), fn(board_combination) -> board_combination == [marker, marker, marker] end)
-    |> Enum.any?(fn(verdict) -> verdict == true end )
+    |> collection_contains_true?
   end
   
   def immediate_win_available_for_marker(board, marker) do
-    Enum.map( board_combinations(board), fn(combination) -> count_marker_type(combination, :_) == 1 end)
-    |> Enum.any?(fn(verdict) -> verdict == true end)
+    board_combinations(board)
+    |> Enum.map(fn(combination) -> count_marker_type(combination, :_) == 1 && count_marker_type(combination, marker) == 2 end)
+    |> collection_contains_true?
+  end
+  
+  def collection_contains_true?(collection) do
+    Enum.any?(collection, fn(verdict) -> verdict == true end)
   end
   
   def is_winning_row(board_row, marker) do
@@ -32,17 +48,14 @@ defmodule GameRules do
   
   def game_is_over?(board) do
     player_markers
-    |> someone_won?(board) || board_is_full?(board)
+    |> someone_won?(board) or board_is_full?(board)
   end
   
   def someone_won?(markers, board) do
     Enum.count(markers, fn(marker) -> winning_row_is_available_for_marker(board, marker) == true end ) > 0
   end
   
-  def board_is_full?(board) do
-    count_marker_type(board, :_) == 0
-  end
-  
+  # BOARD?
   def count_marker_type(collection, marker) do
     Enum.count( collection, fn(collection_element) -> collection_element == marker end )
   end
@@ -53,10 +66,6 @@ defmodule GameRules do
     |> Enum.first
   end
   
-  def player_markers do
-    [:x, :o]
-  end
-  
   def players_to_markers(players) do
     Enum.map(players, fn(player) -> player.marker end)
   end
@@ -64,16 +73,20 @@ defmodule GameRules do
   def alternate_players(current_player) do
     players = player_markers
     player1 = Enum.first(players)
-    if(player1 == current_player,
-      do: List.last(players),
-      else: player1)
+    if player1 == current_player do
+      List.last(players)
+    else 
+      player1
+    end
   end
   
-  def alternate_players(players,current_player) do
+  def alternate_players(players, current_player) do
     player1 = Enum.first(players)
-    if(player1 == current_player,
-      do: List.last(players),
-      else: player1)
+    if player1 == current_player do
+      List.last(players)
+    else
+      player1
+    end
   end
   
 end

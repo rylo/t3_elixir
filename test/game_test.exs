@@ -1,6 +1,5 @@
 Code.require_file "../../lib/game.exs", __FILE__
 
-ExUnit.start
 
 defmodule GameTest do
   use ExUnit.Case

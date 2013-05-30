@@ -8,6 +8,7 @@ defmodule Game do
   
   @game_rules GameRules
   @io ConsoleIO
+  @presenter ConsoleBoardPresenter
   
   def start(player1_type, player2_type) do
     @io.puts 'Welcome to Elixir Tic-Tac-Toe'
@@ -16,21 +17,21 @@ defmodule Game do
   end
   
   def loop_step(board, players, current_player) do
-    @io.puts ConsoleBoardPresenter.render_board(board)
-    board = MoveAction.new(current_player.type, current_player.marker, board)
-    if(not game_is_over?(board, players), 
-       do: loop_step(board, players, @game_rules.alternate_players(players, current_player)),
-       else: end_game(board, players))
+    @io.puts @presenter.render_board(board)
+    move_index = MoveAction.new(current_player.type, current_player.marker, board)
+    board = Board.set_space(board, move_index, current_player.marker)
+    
+    if not @game_rules.game_is_over?(board) do
+      loop_step(board, players, @game_rules.alternate_players(players, current_player))
+    else
+      end_game(board)
+    end
   end
   
-  def end_game(board, players) do
-    @io.puts ConsoleBoardPresenter.render_board(board)
+  def end_game(board) do
+    @io.puts @presenter.render_board(board)
     @io.puts 'Game over!'
     :game_over
-  end
-  
-  def game_is_over?(board, players) do
-    @game_rules.game_is_over?(board)
   end
   
 end

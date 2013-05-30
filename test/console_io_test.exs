@@ -1,12 +1,11 @@
 Code.require_file "../../lib/game_rules.exs", __FILE__
 
-ExUnit.start
-
-defmodule ConsoleIOTest do
+defmodule ConsoleIOTest do 
   use ExUnit.Case
-  
-  test "uses erlang's stdio" do
-    # assert ConsoleIO.puts('') == nil
+
+  test "ensures human input is an integer" do 
+    assert ConsoleIO.process_human_move("3\n") == 3
+    assert ConsoleIO.process_human_move("asdkfj\n") == false
   end
-  
+
 end

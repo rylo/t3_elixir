@@ -1,6 +1,5 @@
 Code.require_file "../../lib/board.exs", __FILE__
 
-ExUnit.start
 
 defmodule BoardTest do
   use ExUnit.Case
