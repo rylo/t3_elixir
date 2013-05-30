@@ -1,7 +1,3 @@
-Code.require_file "../../lib/board.exs", __FILE__
-Code.require_file "../../lib/game_rules.exs", __FILE__
-Code.require_file "../../lib/console_board_presenter.exs", __FILE__
-
 defmodule NegamaxStrategy do
   
   @board Board

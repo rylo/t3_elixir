@@ -1,6 +1,3 @@
-Code.require_file "../../lib/console_board_presenter.exs", __FILE__
-
-
 defmodule ConsoleBoardPresenterTest do
   use ExUnit.Case
   

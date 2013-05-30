@@ -1,6 +1,3 @@
-Code.require_file "../../lib/game_rules.exs", __FILE__
-Code.require_file "../../lib/player.exs", __FILE__
-
 defmodule GameRulesTest do
   use ExUnit.Case
   

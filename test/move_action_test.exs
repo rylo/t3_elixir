@@ -1,8 +1,3 @@
-Code.require_file "../../lib/move_action.exs", __FILE__
-Code.require_file "../../lib/player.exs", __FILE__
-Code.require_file "../../lib/board.exs", __FILE__
-
-
 defmodule MoveActionTest do
   use ExUnit.Case
 

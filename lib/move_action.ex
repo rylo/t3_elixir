@@ -1,8 +1,3 @@
-Code.require_file "../../lib/board.exs", __FILE__
-Code.require_file "../../lib/console_io.exs", __FILE__
-Code.require_file "../../lib/negamax_strategy.exs", __FILE__
-Code.require_file "../../lib/random_strategy.exs", __FILE__
-
 defmodule MoveAction do
 
   @io ConsoleIO

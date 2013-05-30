@@ -1,6 +1,3 @@
-Code.require_file "../../lib/player.exs", __FILE__
-
-
 defmodule PlayerTest do
   use ExUnit.Case
   

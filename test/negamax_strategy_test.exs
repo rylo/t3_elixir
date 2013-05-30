@@ -1,5 +1,3 @@
-Code.require_file "../../lib/negamax_strategy.exs", __FILE__
-
 defmodule NegamaxStrategyTest do
   use ExUnit.Case, async: true
 

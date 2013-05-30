@@ -1,5 +1,3 @@
-Code.require_file "../../lib/game_rules.exs", __FILE__
-
 defmodule ConsoleIOTest do 
   use ExUnit.Case
 
