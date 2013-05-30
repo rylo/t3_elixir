@@ -16,6 +16,15 @@ defmodule GameRules do
     Enum.map( winning_combination, fn(combination_index) -> Enum.fetch!(board, combination_index) end )
   end
 
+  def get_game_status(board) do
+    cond do
+      find_winner(board) ->
+        "#{find_winner(board)} wins!"
+      game_is_tie?(board) ->
+        "It's a tie!"
+    end
+  end
+
   def winning_row_is_available_for_marker(board, marker) do
     Enum.map( board_combinations(board), fn(board_combination) -> board_combination == [marker, marker, marker] end)
     |> collection_contains_true?
@@ -37,7 +46,11 @@ defmodule GameRules do
 
   def game_is_over?(board) do
     player_markers
-    |> someone_won?(board) or Board.board_is_full?(board)
+    |> someone_won?(board) or game_is_tie?(board)
+  end
+
+  def game_is_tie?(board) do
+    Board.board_is_full?(board)
   end
 
   def someone_won?(markers, board) do

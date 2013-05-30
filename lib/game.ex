@@ -26,7 +26,8 @@ defmodule Game do
 
   def end_game(board) do
     @io.puts @presenter.render_board(board)
+    @io.puts @game_rules.get_game_status(board)
     @io.puts 'Game over!'
-    :game_over
+    { :game_over }
   end
 end
