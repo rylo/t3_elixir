@@ -28,5 +28,4 @@ defmodule Board do
         false
     end
   end
-
 end

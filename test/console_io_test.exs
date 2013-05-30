@@ -5,5 +5,4 @@ defmodule ConsoleIOTest do
     assert ConsoleIO.process_human_move("3\n") == 3
     assert ConsoleIO.process_human_move("asdkfj\n") == false
   end
-
 end

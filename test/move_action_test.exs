@@ -14,5 +14,4 @@ defmodule MoveActionTest do
     
     assert returned_index == 2
   end
-
 end
