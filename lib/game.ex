@@ -6,7 +6,7 @@ defmodule Game do
   @setup GameSetup
 
   def start(test // false) do
-    @io.puts "Welcome to Elixir Tic-Tac-Toe!\n"
+    @io.standard_message "Welcome to Elixir Tic-Tac-Toe!\n"
     players = if test do
       @setup.make_players("easy computer", "easy computer")
     else
@@ -17,7 +17,7 @@ defmodule Game do
 
   def loop_step(board, players, current_player) do
     @io.puts @presenter.render_board(board)
-    @io.puts "\n#{current_player.marker}'s turn\n"
+    @io.standard_message "\n#{current_player.marker}'s turn\n"
     
     move_index = MoveAction.new(current_player.type, current_player.marker, board)
     board = Board.set_space(board, move_index, current_player.marker)
