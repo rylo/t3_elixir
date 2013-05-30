@@ -1,7 +1,7 @@
 Elixir.Player
-Elixir.RandomStrategy
 Elixir.NegamaxStrategy
 Elixir.ElixirT3
+Elixir.RandomStrategy
 Elixir.GameRules
 Elixir.MoveAction
 Elixir.Game

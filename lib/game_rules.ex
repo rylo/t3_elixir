@@ -1,22 +1,26 @@
-defmodule GameRules do
+defmodule GameRules do 
 
-  def player_markers do
+  def player_markers do 
     [:x, :o]
   end
 
-  def winning_combinations do
+  def winning_combinations do 
     [ [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6] ]
   end
 
-  def board_combinations(board) do
-    Enum.map( winning_combinations, fn(winning_combination) -> combine_winning_combination_and_board(winning_combination, board) end )
+  def board_combinations(board) do 
+    winning_combinations
+    |> Enum.map(fn(winning_combination) -> 
+      combine_winning_combination_and_board(winning_combination, board) end)
   end
 
-  def combine_winning_combination_and_board(winning_combination, board) do
-    Enum.map( winning_combination, fn(combination_index) -> Enum.fetch!(board, combination_index) end )
+  def combine_winning_combination_and_board(winning_combination, board) do 
+    winning_combination
+    |> Enum.map(fn(combination_index) -> 
+      Enum.fetch!(board, combination_index) end)
   end
 
-  def get_game_status(board) do
+  def get_game_status(board) do 
     cond do
       find_winner(board) ->
         "\n#{find_winner(board)} wins!\n"
@@ -25,10 +29,29 @@ defmodule GameRules do
     end
   end
 
+  def game_is_over?(board) do
+    find_winner(board) != nil or game_is_tie?(board)
+  end
+
+  def game_is_tie?(board) do
+    Board.board_is_full?(board)
+  end
+
+  def find_winner(board) do
+    player_markers
+    |> Enum.filter(fn(marker) -> winning_row_is_present_for_marker(board, marker) == true end)
+    |> Enum.map(fn(marker) -> marker end)
+    |> Enum.first
+  end
+
   def winning_row_is_present_for_marker(board, marker) do
     Enum.map( board_combinations(board), fn(board_combination) -> 
       board_combination == [marker, marker, marker] end)
     |> collection_contains_true?
+  end
+
+  def is_winning_row(board_row, marker) do
+    Board.count_marker_type(board_row, marker) == 3
   end
 
   def immediate_win_available_for_marker(board, marker) do
@@ -40,29 +63,6 @@ defmodule GameRules do
 
   def collection_contains_true?(collection) do
     Enum.any?(collection, fn(verdict) -> verdict == true end)
-  end
-
-  def is_winning_row(board_row, marker) do
-    Board.count_marker_type(board_row, marker) == 3
-  end
-
-  def game_is_over?(board) do
-    player_markers
-    |> someone_won?(board) or game_is_tie?(board)
-  end
-
-  def game_is_tie?(board) do
-    Board.board_is_full?(board)
-  end
-
-  def someone_won?(markers, board) do
-    Enum.count(markers, fn(marker) -> winning_row_is_present_for_marker(board, marker) == true end ) > 0
-  end
-
-  def find_winner(board) do
-    player_markers
-    |> Enum.filter_map(fn(marker) -> winning_row_is_present_for_marker(board, marker) == true end, fn(marker) -> marker end)
-    |> Enum.first
   end
 
   def players_to_markers(players) do
