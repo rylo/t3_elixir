@@ -1,19 +1,19 @@
 defmodule NegamaxStrategy do
-  
+
   @board Board
-  @game_rules GameRules
   @game Game
+  @game_rules GameRules
   @presenter ConsoleBoardPresenter
 
   def get_move(board, marker) do
-    if @game_rules.board_is_empty?(board) do
+    if @board.board_is_empty?(board) do
       [make_score_tuple(0.0, 4)]
     else
       start_negamax(board, marker)
     end
     |> get_highest_score
   end
-  
+
   def start_negamax(board, marker) do
     Board.empty_space_indexes(board)
     |> Enum.map(fn(empty_space) ->
@@ -23,11 +23,11 @@ defmodule NegamaxStrategy do
           |> make_score_tuple(empty_space)
         end)
   end
-  
+
   def make_score_tuple(score, space_index) do
     {-1 * score, space_index}
   end
-  
+
   def run(board, marker, depth) do
     Enum.map(Board.empty_space_indexes(board),
       fn(space_index) ->
@@ -39,7 +39,7 @@ defmodule NegamaxStrategy do
         end
     end)
   end
-  
+
   def get_max(list) do
     if Enum.count(list) > 0 do
       List.flatten(list)
@@ -48,13 +48,13 @@ defmodule NegamaxStrategy do
       0
     end
   end
-  
+
   def get_highest_score(score_tuples) do
     Enum.max(score_tuples, fn({score, _space_index}) -> score end)
     |> tuple_to_list
     |> List.last
   end
-  
+
   def current_board_score_for_marker(board, marker, depth) do
     cond do
       @game_rules.find_winner(board) == marker ->
@@ -63,7 +63,7 @@ defmodule NegamaxStrategy do
         -100
       @game_rules.immediate_win_available_for_marker(board, marker) ->
         50
-      @game_rules.board_is_full?(board) ->
+      @board.board_is_full?(board) ->
         0
       true ->
         0

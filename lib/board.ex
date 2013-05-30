@@ -6,9 +6,25 @@ defmodule Board do
     List.duplicate(@empty_space_marker, 9)
   end
 
+  # BOARD?
+  def count_marker_type(collection, marker) do
+    Enum.count( collection, fn(collection_element) -> collection_element == marker end )
+  end
+
+  # BOARD?
+  def board_is_empty?(board) do
+    Board.empty_space_indexes(board)
+    |> Enum.count == 9
+  end
+
+  # BOARD?
+  def board_is_full?(board) do
+    count_marker_type(board, :_) == 0
+  end
+
   def empty_space_indexes(board) do
     Enum.map(board, fn(space_value, index) -> if(space_value == @empty_space_marker , do: index) end)
-    |> Enum.filter(fn(boolean_value) -> is_integer(boolean_value) end)
+    |> Enum.filter(fn(boolean_value) -> is_integer boolean_value end)
   end
 
   def set_space(board, space_index, marker) do
@@ -20,9 +36,13 @@ defmodule Board do
     Enum.fetch!(space_list, space_index)
   end
 
-  def is_valid_move(index, board) do
+  def space_is_empty?(index, board) do
+    get_space(board, index) == @empty_space_marker
+  end
+
+  def is_valid_move?(index, board) do
     try do
-      get_space(board, index) == @empty_space_marker
+      space_is_empty?(index, board)
     catch
       _value ->
         false
