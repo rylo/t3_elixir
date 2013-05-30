@@ -2,7 +2,7 @@ defmodule ConsoleIOTest do
   use ExUnit.Case
 
   test "ensures human input is an integer" do 
-    assert ConsoleIO.process_human_move("3\n") == 3
-    assert ConsoleIO.process_human_move("asdkfj\n") == false
+    assert ConsoleIO.ensure_input_is_integer("3\n") == 3
+    assert ConsoleIO.ensure_input_is_integer("asdkfj\n") == false
   end
 end

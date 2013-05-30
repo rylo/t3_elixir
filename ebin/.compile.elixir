@@ -1,9 +1,10 @@
 Elixir.Player
-Elixir.NegamaxStrategy
 Elixir.ElixirT3
+Elixir.NegamaxStrategy
 Elixir.RandomStrategy
-Elixir.GameRules
+Elixir.GameSetup
 Elixir.MoveAction
+Elixir.GameRules
 Elixir.Game
 Elixir.Board
 Elixir.ConsoleIO

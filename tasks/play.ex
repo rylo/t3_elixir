@@ -1,5 +1,3 @@
-Code.require_file "../../lib/game.exs", __FILE__
-
 defmodule Mix.Tasks.Play do
   use Mix.Task
 
@@ -9,6 +7,6 @@ defmodule Mix.Tasks.Play do
   A test task.
   """
   def run(_) do
-    Game.start "human", "ultimate computer"
+    Game.start
   end
 end

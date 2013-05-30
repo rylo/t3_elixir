@@ -40,9 +40,8 @@ defmodule Board do
   def is_valid_move?(index, board) do
     try do
       space_is_empty?(index, board)
-    catch
-      _value ->
-        false
+    rescue
+      _ -> false
     end
   end
 end

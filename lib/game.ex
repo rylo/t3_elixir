@@ -3,10 +3,15 @@ defmodule Game do
   @game_rules GameRules
   @io ConsoleIO
   @presenter ConsoleBoardPresenter
+  @setup GameSetup
 
-  def start(player1_type, player2_type) do
-    @io.puts 'Welcome to Elixir Tic-Tac-Toe'
-    players = [Player.new(type: player1_type, marker: :x), Player.new(type: player2_type, marker: :o)]
+  def start(test // false) do
+    @io.puts "Welcome to Elixir Tic-Tac-Toe!\n"
+    players = if test do
+      @setup.make_players("easy computer", "easy computer")
+    else
+      @setup.make_players
+    end
     loop_step(Board.empty_board, players, Enum.first(players))
   end
 

@@ -3,12 +3,13 @@ defmodule MoveAction do
   @io ConsoleIO
 
   def new("human", marker, board) do 
-    input = @io.gets("What's your move, human? ")
-    index = @io.process_human_move(input)
+    input = @io.gets "\nWhat's your move, human? "
+    index = @io.ensure_input_is_integer input
     
     if Board.is_valid_move?(index, board) do 
       index
     else
+      @io.put_error_message "Invalid move. Please try again."
       new("human", marker, board)
     end
   end
