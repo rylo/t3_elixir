@@ -8,7 +8,7 @@ defmodule MoveAction do
     if Board.is_valid_move?(index, board) do 
       index
     else
-      @io.put_error_message "Invalid move. Please input a number between 0 and 8."
+      @io.error_message "Invalid move. Please input a number between 0 and 8."
       new("human", marker, board)
     end
   end

@@ -34,7 +34,7 @@ defmodule GameRules do
   end
 
   def game_is_tie?(board) do
-    Board.board_is_full?(board)
+    Board.is_full?(board)
   end
 
   def find_winner(board) do

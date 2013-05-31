@@ -11,7 +11,7 @@ defmodule GameSetup do
   end
 
   def ask_for_player_type(player) do 
-    index = @io.get_player_type(player, humanized_player_types)
+    index = @io.get_player_type(player, humanized_player_type_selection)
     if is_integer(index) and is_valid_player_selection?(index) do
       get_player_type index
     else
@@ -32,7 +32,7 @@ defmodule GameSetup do
     |> Enum.any?(fn(selection_index) -> selection_index == index end)
   end
 
-  def humanized_player_types do
+  def humanized_player_type_selection do
     @player_types
     |> Enum.map(fn({ selection_index, player_type }) -> " #{selection_index} - #{String.capitalize(player_type)}" end)
     |> Enum.join("\n")

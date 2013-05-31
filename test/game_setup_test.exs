@@ -8,7 +8,7 @@ defmodule GameSetupTest do
   end
 
   test "returns a human-readable list of player types" do
-    assert @subject.humanized_player_types == " 1 - Human\n 2 - Easy computer\n 3 - Ultimate computer"
+    assert @subject.humanized_player_type_selection == " 1 - Human\n 2 - Easy computer\n 3 - Ultimate computer"
   end
 
   test "gets the player type from the given index" do

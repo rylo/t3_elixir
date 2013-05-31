@@ -5,13 +5,19 @@ defmodule Game do
   @presenter ConsoleBoardPresenter
   @setup GameSetup
 
-  def start(test // false) do
+  def setup do
     @io.standard_message "Welcome to Elixir Tic-Tac-Toe!\n"
-    players = if test do
-      @setup.make_players("easy computer", "easy computer")
-    else
-      @setup.make_players
-    end
+    @setup.make_players
+    |> start
+  end
+
+  def setup(is_test) when is_test == true  do
+    @io.standard_message "Welcome to Elixir Tic-Tac-Toe!\n"
+    @setup.make_players("easy computer", "easy computer")
+    |> start
+  end
+
+  def start(players) do
     loop_step(Board.empty_board, players, Enum.first(players))
   end
 
