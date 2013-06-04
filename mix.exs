@@ -17,7 +17,8 @@ defmodule ElixirT3.Mixfile do
                    :move_action, 
                    :negamax_strategy, 
                    :player, 
-                   :random_strategy],
+                   :random_strategy, 
+                   :test_io ],
       compile_path: "ebin" ]
   end
 

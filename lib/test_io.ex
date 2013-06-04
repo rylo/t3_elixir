@@ -1,22 +1,17 @@
-defmodule ConsoleIO do
-  def gets(message) do
-    IO.gets message
+defmodule TestIO do
+  def gets(_message) do
   end
 
-  def puts(message) do
-    IO.puts message
+  def puts(_message) do
   end
 
   def puts(message, color) do
     colorize_text(message, color)
-    |> puts
   end
 
   def get_player_type(player_name, selection_list_message) do
     puts(selection_list_message)
     colorize_text("\nPlease select a type for #{player_name}: ", :blue)
-    |> gets
-    |> ensure_input_is_integer
   end
 
   def standard_message(message) do
@@ -28,26 +23,14 @@ defmodule ConsoleIO do
   end
 
   def ensure_input_is_integer(input_value) do 
-    try do
-      number = strip_newlines(input_value)
-      { index, _ } = String.to_integer(number)
-      index
-    rescue
-      _ -> false
-    end
+    ConsoleIO.ensure_input_is_integer(input_value)
   end
 
   def strip_newlines(text) do 
-    String.replace(text, "\n", "")
+    ConsoleIO.strip_newlines(text)
   end
 
   def colorize_text(text, color) do 
-    text_color = case color do
-      :blue  -> "\033[94m"
-      :green -> "\033[92m"
-      :red   -> "\033[91m"
-      _ -> ""
-    end
-    "#{text_color}#{text}\033[0m"
+    ConsoleIO.colorize_text(text, color)
   end
 end
