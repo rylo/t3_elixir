@@ -16,8 +16,8 @@ defmodule Game do
     |> start(io)
   end
 
-  def start(players) do
-    loop_step(Board.empty_board, players, Enum.first(players))
+  def start(players, io // @io) do
+    loop_step(Board.empty_board, players, Enum.first(players), io)
   end
 
   def loop_step(board, players, current_player, io // @io) do
