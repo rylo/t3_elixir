@@ -1,4 +1,4 @@
-defmodule MoveAction do
+defmodule MoveAction do 
   @io ConsoleIO
 
   def new("human", marker, board) do 

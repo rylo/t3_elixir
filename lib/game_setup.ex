@@ -19,20 +19,20 @@ defmodule GameSetup do
     end
   end
 
-  def get_player_type(index) do
+  def get_player_type(index) do 
     @player_types
     |> Enum.filter(fn({ selection_index, _player_type }) -> selection_index == index end)
     |> Enum.map(fn({ _selection_index, player_type }) -> player_type end)
     |> Enum.first
   end
 
-  def is_valid_player_selection?(index) do
+  def is_valid_player_selection?(index) do 
     @player_types
     |> Enum.map(fn({ selection_index, _player_type }) -> selection_index end)
     |> Enum.any?(fn(selection_index) -> selection_index == index end)
   end
 
-  def humanized_player_type_selection do
+  def humanized_player_type_selection do 
     @player_types
     |> Enum.map(fn({ selection_index, player_type }) -> " #{selection_index} - #{String.capitalize(player_type)}" end)
     |> Enum.join("\n")

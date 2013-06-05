@@ -1,24 +1,24 @@
-defmodule TestIO do
-  def gets(_message) do
+defmodule TestIO do 
+  def gets(_message) do 
   end
 
-  def puts(_message) do
+  def puts(_message) do 
   end
 
-  def puts(message, color) do
+  def puts(message, color) do 
     colorize_text(message, color)
   end
 
-  def get_player_type(player_name, selection_list_message) do
+  def get_player_type(player_name, selection_list_message) do 
     puts(selection_list_message)
     colorize_text("\nPlease select a type for #{player_name}: ", :blue)
   end
 
-  def standard_message(message) do
+  def standard_message(message) do 
     puts(message, :blue)
   end
 
-  def error_message(message) do
+  def error_message(message) do 
     puts("Error: #{message}", :red)
   end
 

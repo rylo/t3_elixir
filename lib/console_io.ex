@@ -1,29 +1,29 @@
-defmodule ConsoleIO do
-  def gets(message) do
+defmodule ConsoleIO do 
+  def gets(message) do 
     IO.gets message
   end
 
-  def puts(message) do
+  def puts(message) do 
     IO.puts message
   end
 
-  def puts(message, color) do
+  def puts(message, color) do 
     colorize_text(message, color)
     |> puts
   end
 
-  def get_player_type(player_name, selection_list_message) do
+  def get_player_type(player_name, selection_list_message) do 
     puts(selection_list_message)
     colorize_text("\nPlease select a type for #{player_name}: ", :blue)
     |> gets
     |> ensure_input_is_integer
   end
 
-  def standard_message(message) do
+  def standard_message(message) do 
     puts(message, :blue)
   end
 
-  def error_message(message) do
+  def error_message(message) do 
     puts("Error: #{message}", :red)
   end
 
