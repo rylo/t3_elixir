@@ -1,5 +1,4 @@
 defmodule GameRules do 
-
   def player_markers do 
     [:x, :o]
   end

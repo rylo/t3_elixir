@@ -1,5 +1,4 @@
 defmodule Game do
-
   @game_rules GameRules
   @io ConsoleIO
   @presenter ConsoleBoardPresenter

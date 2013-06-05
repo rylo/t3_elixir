@@ -1,4 +1,4 @@
-##Installing Erlang (R16 or higher)
+##Installing Erlang (R16 or greater)
 
 To install the newest Erlang version, first run Homebrew's update:
 
@@ -10,7 +10,7 @@ Then install Erlang R16:
 
 If you don't use Homebrew, please visit <a href='http://www.erlang.org/doc/installation_guide/INSTALL.html'>Erlang's website</a> for more information on building and installing Erlang.
 
-##Installing Elixir (v0.9.0)
+##Installing Elixir (v0.9.0 or greater)
 
 Once Erlang R16 or higher is installed on your machine, install Elixir from Homebrew (be sure to update Homebrew first!):
 
