@@ -25,6 +25,7 @@ defmodule GameRulesTest do
     assert @subject.game_is_over?( [:x,:x,:x,:_,:_,:_,:_,:_,:_] ) == true
     assert @subject.game_is_over?( [:x,:x,:o,:_,:_,:_,:_,:_,:_] ) == false
     assert @subject.game_is_over?( [:x,:o,:x,:o,:x,:o,:o,:x,:o] ) == true
+    assert @subject.game_is_over?( [:x,:o,:x,:o,:o,:x,:o,:x,:x] ) == true
   end
 
   test "finds the winner of the game" do
@@ -48,3 +49,10 @@ defmodule GameRulesTest do
     assert @subject.get_game_status([:x,:o,:x,:o,:x,:o,:o,:x,:o]) == "\nIt's a tie!\n"
   end
 end
+
+
+#  x | o | x
+# -----------
+#  o | o | x
+# -----------
+#  o | x | x

@@ -8,38 +8,32 @@ defmodule NegamaxStrategy do
     else
       start(board, marker)
     end
-    |> get_highest_score_from_tuples
+    |> get_highest_score_index_from_tuples
   end
 
   def start(board, marker) do 
     @board.empty_space_indexes(board)
     |> Enum.map(fn(empty_space_index) ->
-          altered_board = @board.set_space(board, empty_space_index, marker)
-          if @game_rules.find_winner(altered_board) == marker do
-            current_board_score_for_marker(altered_board, marker, 1)
-          else
-            altered_board
-            |> run(@game_rules.alternate_players(marker), 1)
-            |> get_max_score
-            |> inverse_number
-          end
-          |> make_score_tuple(empty_space_index)
-        end)
+      @board.set_space(board, empty_space_index, marker)
+      |> run(@game_rules.alternate_players(marker), 1)
+      |> get_max_score
+      |> inverse_number
+      |> make_score_tuple(empty_space_index)
+    end)
   end
 
-  def run(board, marker, depth) do 
-    @board.empty_space_indexes(board)
-    |> Enum.map(fn(empty_space_index) ->
-        altered_board = @board.set_space(board, empty_space_index, marker)
-        if @game_rules.game_is_over?(altered_board) do
-          current_board_score_for_marker(altered_board, marker, depth)
-        else
-          altered_board
-          |> run(@game_rules.alternate_players(marker), depth + 1)
-          |> get_max_score
-          |> inverse_number
-        end
-    end)
+  def run(board, marker, depth) do
+    if @game_rules.game_is_over?(board) do
+      current_board_score_for_marker(board, marker, depth)
+    else
+      @board.empty_space_indexes(board)
+      |> Enum.map(fn(empty_space_index) ->
+        @board.set_space(board, empty_space_index, marker)
+        |> run(@game_rules.alternate_players(marker), depth + 1)
+        |> get_max_score
+        |> inverse_number
+      end)
+    end
   end
 
   def make_score_tuple(score, space_index) do 
@@ -55,11 +49,11 @@ defmodule NegamaxStrategy do
   end
 
   def get_max_score(list) do 
-    List.flatten(list)
+    List.flatten([list])
     |> Enum.max
   end
 
-  def get_highest_score_from_tuples(score_tuples) do 
+  def get_highest_score_index_from_tuples(score_tuples) do 
     Enum.max(score_tuples, fn({score, _space_index}) -> score end)
     |> tuple_to_list
     |> List.last
@@ -73,9 +67,7 @@ defmodule NegamaxStrategy do
         -100
       @game_rules.immediate_win_available_for_marker(board, marker) ->
         50
-      @board.is_full?(board) ->
-        0
-      true ->
+      @game_rules.game_is_tie?(board) ->
         0
     end / depth
   end
