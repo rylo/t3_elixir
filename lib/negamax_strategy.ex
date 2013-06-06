@@ -14,27 +14,21 @@ defmodule NegamaxStrategy do
   def start(board, marker) do 
     @board.empty_space_indexes(board)
     |> Enum.map(fn(empty_space_index) ->
-        altered_board = @board.set_space(board, empty_space_index, marker)
-        if @game_rules.find_winner(altered_board) == marker do
-          current_board_score_for_marker(altered_board, marker, 1)
-        else
-          altered_board
-          |> run(@game_rules.alternate_players(marker), 1)
-          |> get_max_score
-          |> inverse_number
-        end
+        @board.set_space(board, empty_space_index, marker)
+        |> run(@game_rules.alternate_players(marker), 1)
+        |> get_max_score
+        |> inverse_number
         |> make_score_tuple(empty_space_index)
       end)
   end
 
-  def run(board, marker, depth) do 
+  def run(board, marker, depth // 1) do 
     @board.empty_space_indexes(board)
     |> Enum.map(fn(empty_space_index) ->
-        altered_board = @board.set_space(board, empty_space_index, marker)
-        if @game_rules.game_is_over?(altered_board) do
-          current_board_score_for_marker(altered_board, marker, depth)
+        if @game_rules.game_is_over?(board) or depth >= 5 do
+          current_board_score_for_marker(board, marker, depth)
         else
-          altered_board
+          @board.set_space(board, empty_space_index, marker)
           |> run(@game_rules.alternate_players(marker), depth + 1)
           |> get_max_score
           |> inverse_number
