@@ -1,6 +1,7 @@
 defmodule NegamaxStrategy do 
   @board Board
   @game_rules GameRules
+  @infinity 10000000
 
   def get_move(board, marker) do 
     if @board.is_empty?(board) do 
@@ -14,10 +15,17 @@ defmodule NegamaxStrategy do
   def start(board, marker) do 
     @board.empty_space_indexes(board)
     |> Enum.map(fn(empty_space) ->
-          @board.set_space(board, empty_space, marker)
-          |> run(@game_rules.alternate_players(marker), 1)
-          |> get_max_score
-          |> make_score_tuple(empty_space)
+          altered_board = @board.set_space(board, empty_space, marker)
+          if @game_rules.find_winner(altered_board) == marker do
+            @infinity
+            |> inverse_number
+            |> make_score_tuple(empty_space)
+          else
+            altered_board
+            |> run(@game_rules.alternate_players(marker), 1)
+            |> get_max_score
+            |> make_score_tuple(empty_space)
+          end
         end)
   end
 
@@ -25,7 +33,7 @@ defmodule NegamaxStrategy do
     @board.empty_space_indexes(board)
     |> Enum.map(fn(space_index) ->
         altered_board = @board.set_space(board, space_index, marker)
-        if @game_rules.game_is_over?(altered_board) or depth >= 5 do
+        if @game_rules.game_is_over?(altered_board) do
           current_board_score_for_marker(altered_board, marker, depth)
         else
           altered_board

@@ -15,6 +15,7 @@ defmodule NegamaxStrategyTest do
     assert @subject.get_move([:_,:_,:_,:_,:o,:_,:_,:x,:x], :o) == 6
     assert @subject.get_move([:o,:x,:_,:_,:x,:_,:_,:_,:_], :o) == 7
     assert @subject.get_move([:_,:_,:_,:_,:_,:_,:_,:_,:_], :x) == 4
+    assert @subject.get_move([:x,:o,:_,:_,:o,:_,:x,:_,:x], :o) == 7
   end
 
   test "returns the maximum value from a nested list" do
