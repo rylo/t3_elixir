@@ -6,6 +6,7 @@ To install the newest Erlang version, first run Homebrew's update:
 
 Then install Erlang R16:
 
+    brew tap homebrew/versions
     brew install erlang-r16
 
 If you don't use Homebrew, please visit <a href='http://www.erlang.org/doc/installation_guide/INSTALL.html'>Erlang's website</a> for more information on building and installing Erlang.
